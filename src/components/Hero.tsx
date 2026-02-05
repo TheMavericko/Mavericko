@@ -72,13 +72,13 @@ export default function Hero() {
             <motion.section
                 ref={sectionRef}
                 style={{ backgroundColor }}
-                className="relative min-h-[70vh] px-6 overflow-hidden pt-0"
+                className="relative min-h-[50vh] px-6 overflow-hidden pt-0"
             >
                 {/* Animation wrapper */}
-                <div className="relative w-full max-w-2xl h-[460px] mx-auto">
+                <div className="relative w-full max-w-2xl h-[300px] mx-auto">
                     {/* Black Hole */}
                     <motion.div
-                        className="absolute top-1/2 right-12 -transl5ate-y-1/2 w-64 h-64"
+                        className="absolute top-1/4 right-12 -transl5ate-y-1/2 w-64 h-64"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                     >
@@ -92,7 +92,7 @@ export default function Hero() {
 
                     {/* Arrow → perfectly into center */}
                     <motion.div
-                        className="absolute top-1/2 left-12 -translate-y-1/2"
+                        className="absolute top-1/4 left-12 -translate-y-1/2"
                         animate={{
                             x: [0, 410, 320],
                             y: [90, 90, 90],

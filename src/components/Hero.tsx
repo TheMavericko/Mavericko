@@ -72,7 +72,7 @@ export default function Hero() {
             <motion.section
                 ref={sectionRef}
                 style={{ backgroundColor }}
-                className="relative min-h-[50vh] px-6 overflow-hidden pt-0"
+                className="relative px-6 overflow-hidden pt-0 pb-7"
             >
                 {/* Animation wrapper */}
                 <div className="relative w-full max-w-2xl h-[300px] mx-auto">

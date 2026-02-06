@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, Users, Zap } from "lucide-react";
+import { Clock, Users, ShieldCheck } from "lucide-react";
 
 export default function EfficiencyMission() {
     return (
@@ -81,12 +81,17 @@ export default function EfficiencyMission() {
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] animate-pulse" />
                     <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-blue-500/20 rounded-full blur-[60px]" />
 
-                    <div className="text-center p-12 relative z-10 border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl transform group-hover:scale-105 transition-transform duration-500">
-                        <div className="flex justify-center mb-4 text-green-400">
-                            <Zap size={48} className="drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]" />
+                    <div className="text-center p-10 relative z-10 border border-white/10 bg-neutral-900/50 backdrop-blur-md rounded-2xl transform group-hover:scale-105 transition-transform duration-500">
+                        <div className="relative flex justify-center items-center mb-6">
+                            <motion.div
+                                animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0, 0.2] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute w-24 h-24 bg-purple-500/20 rounded-full blur-xl"
+                            />
+                            <ShieldCheck size={64} className="text-purple-400 drop-shadow-[0_0_20px_rgba(168,85,247,0.5)] relative z-10" />
                         </div>
-                        <div className="text-7xl font-bold text-white mb-2 tracking-tighter">98%</div>
-                        <div className="text-white/40 uppercase tracking-[0.2em] text-xs font-semibold">Ghost Jobs Filtered</div>
+                        <div className="text-white font-semibold text-xl tracking-wide">Active Protection</div>
+                        <div className="text-white/40 text-sm mt-2 font-light">Real-Time Filtering</div>
                     </div>
                 </motion.div>
             </div>

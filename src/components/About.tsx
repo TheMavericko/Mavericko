@@ -45,20 +45,22 @@ export default function About() {
 
                 {/* CARD GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-                    {cards.map((card, index) => (
+                    {cards.map((card, idx) => (
                         <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.2, duration: 0.5 }}
-                            className="p-8 bg-neutral-900/50 backdrop-blur-sm border border-white/5 rounded-2xl hover:border-primary/40 hover:bg-neutral-900/80 transition-all duration-300 group"
+                            transition={{ delay: idx * 0.1 }}
+                            className="flex flex-col items-center text-center p-10 bg-gradient-to-b from-white/[0.05] to-transparent border border-white/5 rounded-3xl hover:border-primary/30 transition-all duration-500 group relative overflow-hidden"
                         >
-                            <div className="w-14 h-14 mb-6 bg-white/5 rounded-xl flex items-center justify-center text-primary border border-white/5 group-hover:scale-110 transition-transform duration-300 custom-shadow">
-                                <card.icon size={28} className="drop-shadow-[0_0_10px_rgba(138,43,226,0.5)]" />
+                            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                            <div className="relative z-10 mb-8 p-5 bg-black rounded-2xl border border-white/10 group-hover:border-primary/50 transition-colors text-primary shadow-[0_0_30px_rgba(138,43,226,0.15)] group-hover:shadow-[0_0_50px_rgba(138,43,226,0.4)]">
+                                <card.icon size={36} />
                             </div>
-                            <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
-                            <p className="text-neutral-400 leading-relaxed group-hover:text-neutral-300 transition-colors">
+                            <h3 className="relative z-10 text-2xl font-bold mb-4">{card.title}</h3>
+                            <p className="relative z-10 text-white/50 leading-relaxed font-light">
                                 {card.text}
                             </p>
                         </motion.div>

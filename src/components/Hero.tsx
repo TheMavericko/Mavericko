@@ -73,10 +73,10 @@ export default function Hero() {
                 className="relative px-6 overflow-hidden pt-0 pb-20"
             >
                 {/* Animation wrapper */}
-                <div className="relative w-full max-w-2xl h-[220px] mx-auto">
+                <div className="relative w-full max-w-2xl h-[280px] sm:h-[320px] mx-auto">
                     {/* Black Hole */}
                     <motion.div
-                        className="absolute top-1/6 right-12 -transl5ate-y-1/2 w-64 h-64"
+                        className="absolute top-1/6 right-12 -translate-y-1/2 w-64 h-64"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                     >

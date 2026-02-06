@@ -92,7 +92,7 @@ export default function Hero() {
                     <motion.div
                         className="absolute top-1/6 left-12 -translate-y-1/2"
                         animate={{
-                            x: [0, 410, 320],
+                            x: [0, 410, 410],
                             y: [90, 90, 90],
                             scale: [1, 0.7, 0.2],
                             opacity: [1, 0.8, 0],

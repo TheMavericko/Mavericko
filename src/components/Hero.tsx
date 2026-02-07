@@ -79,7 +79,7 @@ export default function Hero() {
                 >
                     {/* Black Hole */}
                     <motion.div
-                        className="absolute top-1/5 right-12 -translate-y-1/2 w-64 h-64"
+                        className="absolute top-1/4 right-12 -translate-y-1/2 w-64 h-64"
                         animate={{
                             rotate: 360,
                         }}
@@ -123,7 +123,7 @@ export default function Hero() {
 
                     {/* Paper Plane (Resume) */}
                     <motion.div
-                        className="absolute top-1/4 left-12 -translate-y-1/2"
+                        className="absolute top-1/3 left-12 -translate-y-1/2"
                         animate={{
                             x: [0, 320, 420],
                             y: [0, -20, 0],
@@ -147,7 +147,7 @@ export default function Hero() {
                         return (
                             <motion.div
                                 key={i}
-                                className="absolute top-1/3 right-12 w-2 h-2 bg-purple-400/60 rounded-full"
+                                className="absolute top-1/2 right-12 w-2 h-2 bg-purple-400/60 rounded-full"
                                 style={{
                                     x: Math.cos(angle) * radius,
                                     y: Math.sin(angle) * radius,
@@ -183,7 +183,7 @@ export default function Hero() {
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.6 }}
                     viewport={{ once: true }}
-                    className="mt-10 text-center text-3xl md:text-4xl text-purple-300/90 italic"
+                    className="mt-16 text-center text-3xl md:text-4xl text-purple-300/90 italic"
                 >
                     Your application vanishes into the void…
                 </motion.p>

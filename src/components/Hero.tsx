@@ -23,7 +23,7 @@ export default function Hero() {
             {/* ================= HERO SECTION ================= */}
             <section className="relative flex flex-col items-center justify-center min-h-screen px-4 overflow-hidden pt-20">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px]" />
+                    <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px]" />
                     <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-900/20 rounded-full blur-[96px]" />
                     <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
                 </div>
@@ -123,7 +123,7 @@ export default function Hero() {
 
                     {/* Paper Plane (Resume) */}
                     <motion.div
-                        className="absolute top-1/3 left-12 -translate-y-1/2"
+                        className="absolute top-1/2 left-12 -translate-y-1/2"
                         animate={{
                             x: [0, 320, 420],
                             y: [0, -20, 0],
@@ -147,7 +147,7 @@ export default function Hero() {
                         return (
                             <motion.div
                                 key={i}
-                                className="absolute top-1/2 right-12 w-2 h-2 bg-purple-400/60 rounded-full"
+                                className="absolute top-[60%] right-12 w-2 h-2 bg-purple-400/60 rounded-full"
                                 style={{
                                     x: Math.cos(angle) * radius,
                                     y: Math.sin(angle) * radius,

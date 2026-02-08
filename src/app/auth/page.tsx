@@ -2,12 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Check, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
+
+    const handleAuth = (e: React.FormEvent) => {
+        e.preventDefault();
+        router.push("/dashboard");
+    };
 
     // Toggle variant for animation
     const toggleVariants = {
@@ -82,7 +89,7 @@ export default function AuthPage() {
                             exit={{ opacity: 0, x: isLogin ? 20 : -20 }}
                             transition={{ duration: 0.3 }}
                             className="space-y-4"
-                            onSubmit={(e) => e.preventDefault()}
+                            onSubmit={handleAuth}
                         >
                             {!isLogin && (
                                 <div className="space-y-1.5">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Twitter, Linkedin, Github, Mail, Send } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -100,7 +101,7 @@ export default function Footer() {
                 {/* BOTTOM BAR */}
                 <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
                     <div className="flex items-center gap-3 mb-4 md:mb-0">
-                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">M</div>
+                        <Image src="/mavericko_logo.jpeg" alt="Mavericko Logo" width={32} height={32} className="rounded-lg" />
                         <p className="text-white/40 text-sm">
                             &copy; 2026 Mavericko. All rights reserved.
                         </p>

@@ -76,11 +76,11 @@ export async function getJobs(): Promise<Job[]> {
         const companyIdx = getIndex("Company");
         const roleIdx = getIndex("Job Title");
         const locationIdx = getIndex("Location");
-        const postedDateIdx = getIndex("Job Posted");
         const jobDateIdx = getIndex("Job Date");
+        const dateIdx = getIndex("Date");
         const descriptionIdx = getIndex("Job Description");
         const applyLinkIdx = getIndex("Apply Link");
-        const linkedinLinkIdx = getIndex("Apply Link(Linkedin)");
+        const linkedinLinkIdx = getIndex("Apply Link (LinkedIn)");
 
         const jobs: Job[] = [];
 
@@ -96,13 +96,16 @@ export async function getJobs(): Promise<Job[]> {
             const applyLinkedin = getVal(linkedinLinkIdx);
             const finalApplyUrl = applyDirect || applyLinkedin;
 
+            // Prioritize "Job Date", then "Date", then "Job Posted"
+            const finalPostedDate = getVal(jobDateIdx) || getVal(dateIdx);
+
             // Only add if there is at least a role or company to show
             if (getVal(roleIdx) || getVal(companyIdx)) {
                 jobs.push({
                     company: getVal(companyIdx),
                     role: getVal(roleIdx),
                     location: getVal(locationIdx),
-                    posted_date: getVal(postedDateIdx),
+                    posted_date: finalPostedDate,
                     job_date: getVal(jobDateIdx),
                     description: getVal(descriptionIdx),
                     apply_url: finalApplyUrl

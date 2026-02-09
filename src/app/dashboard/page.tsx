@@ -72,21 +72,43 @@ export default function DashboardPage() {
                 </div>
 
                 {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-64 bg-white/5 rounded-2xl animate-pulse border border-white/5" />
+                    // Loading Skeleton for Table
+                    <div className="w-full bg-white/5 rounded-2xl border border-white/10 overflow-hidden animate-pulse">
+                        <div className="h-12 border-b border-white/10 bg-white/5" />
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <div key={i} className="h-16 border-b border-white/10" />
                         ))}
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {jobs.map((job, index) => (
-                            <JobCard
-                                key={`${job.company}-${index}`}
-                                job={job}
-                                onViewDetails={setSelectedJob}
-                            />
-                        ))}
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="w-full overflow-hidden rounded-2xl border border-white/10 bg-black/20 backdrop-blur-xl"
+                    >
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-white/10 bg-white/5 text-sm uppercase tracking-wider text-neutral-400">
+                                        <th className="px-6 py-4 font-medium">Company</th>
+                                        <th className="px-6 py-4 font-medium">Role</th>
+                                        <th className="px-6 py-4 font-medium">Location</th>
+                                        <th className="px-6 py-4 font-medium">Posted</th>
+                                        <th className="px-6 py-4 font-medium">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {jobs.map((job, index) => (
+                                        <JobCard
+                                            key={`${job.company}-${index}`}
+                                            job={job}
+                                            onViewDetails={setSelectedJob}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </motion.div>
                 )}
             </main>
 

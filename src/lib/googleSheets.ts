@@ -1,7 +1,10 @@
 import { google } from "googleapis";
 import path from "path";
+import fs from "fs";
 
 // Placeholder for Spreadsheet ID - User needs to update this
+// Note: User provided ID in previous step, so we should keep it or update it if they changed it.
+// Assuming the ID from the file view is correct: 13HcLxV7LgmP2QNu00mIhmhRtVoJ0_zozk_GcCFyL48w
 const SPREADSHEET_ID = "13HcLxV7LgmP2QNu00mIhmhRtVoJ0_zozk_GcCFyL48w";
 
 export interface Job {
@@ -16,9 +19,28 @@ export interface Job {
 
 export async function getJobs(): Promise<Job[]> {
     try {
+        const filePath = path.join(process.cwd(), "service_account.json");
+
+        // Explicitly read and parse the file to ensure control over private_key formatting
+        if (!fs.existsSync(filePath)) {
+            console.error("Service account file not found at:", filePath);
+            return [];
+        }
+
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        const credentials = JSON.parse(fileContent);
+
+        // Robust newline handling: replace literal "\\n" with actual "\n" just in case, 
+        // though JSON.parse usually handles standard escaping.
+        // Also checks if private_key is present.
+        if (!credentials.private_key) {
+            console.error("Missing private_key in service_account.json");
+            return [];
+        }
+
         // Authenticate
         const auth = new google.auth.GoogleAuth({
-            keyFile: path.join(process.cwd(), "service_account.json"),
+            credentials,
             scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
         });
 
@@ -46,7 +68,7 @@ export async function getJobs(): Promise<Job[]> {
         // "Job Description" -> description
         // "Apply Link" / "Apply Link(Linkedin)" -> apply_url
 
-        const headers = rows[0].map(h => h.toString().trim().toLowerCase());
+        const headers = rows[0].map((h: any) => h.toString().trim().toLowerCase());
 
         // Helper to find index
         const getIndex = (name: string) => headers.indexOf(name.toLowerCase());

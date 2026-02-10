@@ -44,20 +44,29 @@ export default function Header() {
                 ))}
             </nav>
 
-            {/* Right: Login/Sign Up */}
+            {/* Right: Login/Sign Up or Avatar */}
             <div className="flex items-center gap-4">
-                <Link
-                    href="/auth"
-                    className="hidden md:block text-sm font-medium text-white hover:text-primary transition-colors"
-                >
-                    Login
-                </Link>
-                <Link
-                    href="/auth"
-                    className="px-6 py-2.5 text-sm font-semibold text-black bg-white rounded-full hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-                >
-                    Sign Up
-                </Link>
+                {isDashboard ? (
+                    // User Profile Circle
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg ring-2 ring-white/10 hover:ring-purple-500/50 transition-all cursor-pointer">
+                        U
+                    </div>
+                ) : (
+                    <>
+                        <Link
+                            href="/auth"
+                            className="hidden md:block text-sm font-medium text-white hover:text-primary transition-colors"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            href="/auth"
+                            className="px-6 py-2.5 text-sm font-semibold text-black bg-white rounded-full hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                        >
+                            Sign Up
+                        </Link>
+                    </>
+                )}
             </div>
         </motion.header>
     );

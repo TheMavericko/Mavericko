@@ -11,6 +11,13 @@ export default function DashboardPage() {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredJobs = jobs.filter(job =>
+        job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.location.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -84,29 +91,67 @@ export default function DashboardPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="w-full overflow-hidden rounded-2xl border border-white/10 bg-black/20 backdrop-blur-xl"
+                        className="space-y-6"
                     >
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="border-b border-white/10 bg-white/5 text-sm uppercase tracking-wider text-neutral-400">
-                                        <th className="px-6 py-4 font-medium">Company</th>
-                                        <th className="px-6 py-4 font-medium">Role</th>
-                                        <th className="px-6 py-4 font-medium">Location</th>
-                                        <th className="px-6 py-4 font-medium">Posted</th>
-                                        <th className="px-6 py-4 font-medium">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-white/5">
-                                    {jobs.map((job, index) => (
-                                        <JobCard
-                                            key={`${job.company}-${index}`}
-                                            job={job}
-                                            onViewDetails={setSelectedJob}
-                                        />
-                                    ))}
-                                </tbody>
-                            </table>
+                        {/* Search Input */}
+                        <div className="w-full relative">
+                            <input
+                                type="text"
+                                placeholder="Search by Role, Company, or City..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full p-4 pl-6 bg-white/10 backdrop-blur-md rounded-2xl text-white placeholder:text-neutral-500 border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            />
+                            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-5 w-5 text-neutral-500"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* Jobs Table */}
+                        <div className="w-full overflow-hidden rounded-2xl border border-white/10 bg-black/20 backdrop-blur-xl">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr className="border-b border-white/10 bg-white/5 text-sm uppercase tracking-wider text-neutral-400">
+                                            <th className="px-6 py-4 font-medium">Company</th>
+                                            <th className="px-6 py-4 font-medium">Role</th>
+                                            <th className="px-6 py-4 font-medium">Location</th>
+                                            <th className="px-6 py-4 font-medium">Posted</th>
+                                            <th className="px-6 py-4 font-medium">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-white/5">
+                                        {filteredJobs.length > 0 ? (
+                                            filteredJobs.map((job, index) => (
+                                                <JobCard
+                                                    key={`${job.company}-${index}`}
+                                                    job={job}
+                                                    onViewDetails={setSelectedJob}
+                                                />
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td colSpan={5} className="px-6 py-12 text-center text-neutral-500">
+                                                    No jobs found matching your search.
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </motion.div>
                 )}

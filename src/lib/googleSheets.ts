@@ -92,9 +92,33 @@ export async function getJobs(): Promise<Job[]> {
             // Safe getter
             const getVal = (idx: number) => (idx >= 0 && row[idx]) ? row[idx].toString() : "";
 
-            const applyDirect = getVal(applyLinkIdx);
-            const applyLinkedin = getVal(linkedinLinkIdx);
-            const finalApplyUrl = applyDirect || applyLinkedin;
+            const rawDirect = getVal(applyLinkIdx);
+            const rawLinkedin = getVal(linkedinLinkIdx);
+
+            // Identify "Dirty" Ad Links.
+            const isAdLink = (url: string) => {
+                if (!url) return false;
+                const lower = url.toLowerCase();
+                return lower.includes("doubleclick") ||
+                    lower.includes("googleadservices") ||
+                    lower.includes("ad.atdmt");
+            };
+
+            let finalApplyUrl = "#";
+
+            // PRIORITY LOGIC:
+            // If the Direct Link is CLEAN, use it.
+            if (rawDirect && rawDirect.trim().length > 0 && !isAdLink(rawDirect)) {
+                finalApplyUrl = rawDirect;
+            }
+            // If Direct Link is DIRTY (or empty), check LinkedIn.
+            else if (rawLinkedin && rawLinkedin.trim().length > 0) {
+                finalApplyUrl = rawLinkedin;
+            }
+            // Last Resort: If LinkedIn is ALSO empty, use the dirty link (better than nothing).
+            else if (rawDirect && rawDirect.trim().length > 0) {
+                finalApplyUrl = rawDirect;
+            }
 
             // Prioritize "Job Date", then "Date", then "Job Posted"
             const finalPostedDate = getVal(jobDateIdx) || getVal(dateIdx);

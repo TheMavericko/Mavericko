@@ -49,7 +49,7 @@ export default function Hero() {
                     >
                         Stop Chasing <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bca1ff] via-white to-[#bca1ff] animate-gradient-x bg-[length:200%_auto]">
-                            Ghosts
+                            Ghosts Jobs
                         </span>
                     </motion.h1>
 

@@ -21,7 +21,7 @@ export default function Header() {
 
             {/* Middle: Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-                {["Home", "About Us", "How it Works", "Contact Us"].map((item) => (
+                {["Home", "How it Works", "About Us", "Contact Us"].map((item) => (
                     <Link
                         key={item}
                         href={

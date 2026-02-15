@@ -5,6 +5,7 @@ import EfficiencyMission from "@/components/features/EfficiencyMission";
 import TheAdvantage from "@/components/features/TheAdvantage";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
+import CTA from "@/components/CTA";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
       <div id="about">
         <About />
       </div>
+      <CTA />
       <div id="contact-us">
         <Footer />
       </div>

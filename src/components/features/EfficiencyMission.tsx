@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, Users, Zap } from "lucide-react";
+import { Clock, Users, ShieldCheck } from "lucide-react";
 
 export default function EfficiencyMission() {
     return (
@@ -81,12 +81,33 @@ export default function EfficiencyMission() {
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] animate-pulse" />
                     <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-blue-500/20 rounded-full blur-[60px]" />
 
-                    <div className="text-center p-12 relative z-10 border border-white/10 bg-black/40 backdrop-blur-md rounded-2xl transform group-hover:scale-105 transition-transform duration-500">
-                        <div className="flex justify-center mb-4 text-green-400">
-                            <Zap size={48} className="drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]" />
+                    <div className="text-center p-10 relative z-10 border border-white/10 bg-neutral-900/50 backdrop-blur-md rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500 w-64 h-64 flex flex-col items-center justify-center">
+
+                        {/* Scanning Beam */}
+                        <motion.div
+                            animate={{ top: ["-10%", "110%"] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            className="absolute left-0 w-full h-20 bg-gradient-to-b from-purple-500/0 via-purple-500/20 to-purple-500/0 pointer-events-none z-0"
+                        />
+
+                        <div className="relative flex justify-center items-center mb-6 z-10">
+                            <motion.div
+                                animate={{ opacity: [0, 0.5, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute w-28 h-28 bg-purple-500/20 rounded-full blur-xl"
+                            />
+                            <motion.div
+                                animate={{ scale: [1, 1.1, 1] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <ShieldCheck size={64} className="text-purple-400 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)] relative z-10" />
+                            </motion.div>
                         </div>
-                        <div className="text-7xl font-bold text-white mb-2 tracking-tighter">98%</div>
-                        <div className="text-white/40 uppercase tracking-[0.2em] text-xs font-semibold">Ghost Jobs Filtered</div>
+
+                        <div className="flex items-center gap-2 mb-1 relative z-10">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                            <div className="text-white font-mono text-sm tracking-widest">SYSTEM ACTIVE</div>
+                        </div>
                     </div>
                 </motion.div>
             </div>

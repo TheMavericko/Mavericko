@@ -10,6 +10,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Mavericko | Verified Job Discovery",
   description: "Aggregating data from verified sources and filtering it for you.",
+  icons: {
+    icon: '/mavericko_logo.jpeg',
+  },
 };
 
 export default function RootLayout({

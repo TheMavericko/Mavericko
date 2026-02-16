@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { Job } from "@/lib/googleSheets";
+import { Job } from "@/types/job";
 
 interface JobCardProps {
     job: Job;

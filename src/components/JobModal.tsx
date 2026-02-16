@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Building2, MapPin, Calendar, Clock, ArrowUpRight } from "lucide-react";
-import { Job } from "@/lib/googleSheets";
+import { Job } from "@/types/job";
 
 interface JobModalProps {
     job: Job | null;

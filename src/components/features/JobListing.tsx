@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import JobCard from "@/components/JobCard";
 import JobModal from "@/components/JobModal";
-import { Job } from "@/lib/googleSheets";
+import { Job } from "@/types/job";
 import { motion } from "framer-motion";
 
 export default function JobListing() {

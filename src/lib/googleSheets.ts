@@ -2,20 +2,14 @@ import { google } from "googleapis";
 import path from "path";
 import fs from "fs";
 
+import { Job } from "@/types/job";
+
 // Placeholder for Spreadsheet ID - User needs to update this
 // Note: User provided ID in previous step, so we should keep it or update it if they changed it.
 // Assuming the ID from the file view is correct: 13HcLxV7LgmP2QNu00mIhmhRtVoJ0_zozk_GcCFyL48w
 const SPREADSHEET_ID = "13HcLxV7LgmP2QNu00mIhmhRtVoJ0_zozk_GcCFyL48w";
 
-export interface Job {
-    company: string;
-    role: string;
-    location: string;
-    posted_date: string;
-    job_date: string;
-    description: string;
-    apply_url: string;
-}
+export type { Job };
 
 export async function getJobs(): Promise<Job[]> {
     try {

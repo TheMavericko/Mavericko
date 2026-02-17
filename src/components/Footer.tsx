@@ -101,7 +101,7 @@ export default function Footer() {
                 {/* BOTTOM BAR */}
                 <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
                     <div className="flex items-center gap-3 mb-4 md:mb-0">
-                        <Image src="/Mavericko Logo White.png" alt="Mavericko Logo" width={32} height={32} className="rounded-lg" />
+                        <Image src="/mavericko_logo.png" alt="Mavericko Logo" width={32} height={32} className="rounded-lg" />
                         <p className="text-white/40 text-sm">
                             &copy; 2026 Mavericko. All rights reserved.
                         </p>

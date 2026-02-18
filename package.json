@@ -9,17 +9,20 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@google/generative-ai": "^0.24.1",
         "clsx": "^2.1.0",
         "framer-motion": "^11.0.3",
         "googleapis": "^171.4.0",
         "lucide-react": "^0.330.0",
         "next": "14.1.0",
+        "pdf2json": "^4.0.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "tailwind-merge": "^2.2.1"
     },
     "devDependencies": {
         "@types/node": "^20.19.33",
+        "@types/pdf-parse": "^1.1.5",
         "@types/react": "^18.2.55",
         "@types/react-dom": "^18.2.19",
         "autoprefixer": "^10.4.17",

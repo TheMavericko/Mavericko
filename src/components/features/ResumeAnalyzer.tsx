@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, FileText, CheckCircle, AlertCircle, X, Loader2, Sparkles, ArrowRight } from "lucide-react";
 
@@ -19,6 +19,18 @@ export default function ResumeAnalyzer() {
     const [error, setError] = useState<string | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // 1. Load saved result from Local Storage on startup
+    useEffect(() => {
+        const saved = localStorage.getItem("resumeResult");
+        if (saved) {
+            try {
+                setResult(JSON.parse(saved));
+            } catch (e) {
+                console.error("Failed to parse saved resume result", e);
+            }
+        }
+    }, []);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
@@ -73,6 +85,9 @@ export default function ResumeAnalyzer() {
 
             const data: AnalysisResult = await response.json();
             setResult(data);
+
+            // 2. Save result to Local Storage (The "Guest Mode" Fix)
+            localStorage.setItem("resumeResult", JSON.stringify(data));
         } catch (err: any) {
             console.error("Analysis Error:", err);
             setError(err.message || "An unexpected error occurred. Please try again.");
@@ -85,6 +100,7 @@ export default function ResumeAnalyzer() {
         setFile(null);
         setResult(null);
         setError(null);
+        localStorage.removeItem("resumeResult");
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }

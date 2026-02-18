@@ -3,13 +3,15 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Job } from "@/types/job";
+import JobMatchButton from "./JobMatchButton";
 
 interface JobCardProps {
     job: Job;
     onViewDetails: (job: Job) => void;
+    resumeFile: File | null;
 }
 
-export default function JobCard({ job, onViewDetails }: JobCardProps) {
+export default function JobCard({ job, onViewDetails, resumeFile }: JobCardProps) {
     return (
         <motion.tr
             layout
@@ -55,6 +57,11 @@ export default function JobCard({ job, onViewDetails }: JobCardProps) {
                     Apply
                     <ArrowUpRight className="w-3 h-3" />
                 </a>
+            </td>
+
+            {/* AI Match */}
+            <td className="py-4 px-6 align-middle">
+                <JobMatchButton jobDescription={job.description} resumeFile={resumeFile} />
             </td>
         </motion.tr>
     );

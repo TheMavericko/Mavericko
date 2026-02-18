@@ -11,6 +11,7 @@ export default function JobListing() {
     const [loading, setLoading] = useState(true);
     const [selectedJob, setSelectedJob] = useState<Job | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
 
     const filteredJobs = jobs.filter(job =>
         job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -38,34 +39,67 @@ export default function JobListing() {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                <div>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl font-bold tracking-tight mb-2"
-                    >
-                        Job Feed
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-neutral-400"
-                    >
-                        Curated opportunities just for you.
-                    </motion.p>
-                </div>
-
+            <div className="flex flex-col gap-8 mb-12">
+                {/* Master Resume Upload Header */}
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group"
                 >
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-sm font-medium">{jobs.length} Active Jobs</span>
+                    <div className="relative z-10 w-full md:w-auto">
+                        <h1 className="text-2xl font-bold mb-1 text-white">Master Resume Upload</h1>
+                        <p className="text-neutral-400 text-sm max-w-md">
+                            Upload once to instantly match with all jobs below.
+                        </p>
+                    </div>
+
+                    <div className="relative z-10 w-full md:w-auto bg-black/20 p-2 rounded-xl border border-white/10 hover:border-purple-500/50 transition-colors">
+                        <input
+                            type="file"
+                            accept=".pdf"
+                            onChange={(e) => setResumeFile(e.target.files?.[0] || null)}
+                            className="block w-full text-sm text-neutral-300
+                            file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 
+                            file:text-sm file:font-semibold file:bg-purple-600 file:text-white
+                            hover:file:bg-purple-500 cursor-pointer transition-colors"
+                        />
+                        {resumeFile && (
+                            <div className="absolute top-full mt-2 right-0 text-green-400 text-xs flex items-center gap-1">
+                                ✓ Ready: {resumeFile.name}
+                            </div>
+                        )}
+                    </div>
                 </motion.div>
+
+                <div className="flex flex-col md:flex-row justify-between items-end gap-4">
+                    <div>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-2xl font-bold tracking-tight mb-1"
+                        >
+                            Available Positions
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-neutral-400 text-sm"
+                        >
+                            Browse opportunities tailored to your skills.
+                        </motion.p>
+                    </div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2"
+                    >
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-sm font-medium text-white">{jobs.length} Active Jobs</span>
+                    </motion.div>
+                </div>
             </div>
 
             {loading ? (
@@ -121,6 +155,7 @@ export default function JobListing() {
                                         <th className="px-6 py-4 font-medium">Location</th>
                                         <th className="px-6 py-4 font-medium">Posted</th>
                                         <th className="px-6 py-4 font-medium">Action</th>
+                                        <th className="px-6 py-4 font-medium">AI Match</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
@@ -130,11 +165,12 @@ export default function JobListing() {
                                                 key={`${job.company}-${index}`}
                                                 job={job}
                                                 onViewDetails={setSelectedJob}
+                                                resumeFile={resumeFile}
                                             />
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan={5} className="px-6 py-12 text-center text-neutral-500">
+                                            <td colSpan={6} className="px-6 py-12 text-center text-neutral-500">
                                                 No jobs found matching your search.
                                             </td>
                                         </tr>

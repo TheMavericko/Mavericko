@@ -62,10 +62,11 @@ export default function ResumeAnalyzer() {
             </div>
 
             {/* Control Panel */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 shadow-xl">
+            <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-50" />
 
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 mb-6 p-1 bg-black/20 rounded-lg border border-white/10 w-fit">
+                <div className="flex flex-wrap gap-2 mb-8 p-1.5 bg-black/40 rounded-xl border border-white/5 w-fit mx-auto sm:mx-0">
                     {[
                         { id: "analyze-jd", label: "🎯 In-Depth Match" },
                         { id: "ats-score", label: "🤖 General ATS Score" },
@@ -74,7 +75,9 @@ export default function ResumeAnalyzer() {
                         <button
                             key={tab.id}
                             onClick={() => { setActiveTab(tab.id as any); setResult(null); }}
-                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === tab.id ? "bg-purple-600 text-white shadow-md" : "text-neutral-400 hover:text-neutral-200 hover:bg-white/5"
+                            className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer ${activeTab === tab.id
+                                ? "bg-purple-600 text-white shadow-lg shadow-purple-900/20"
+                                : "text-neutral-400 hover:text-white hover:bg-white/5"
                                 }`}
                         >
                             {tab.label}
@@ -82,15 +85,21 @@ export default function ResumeAnalyzer() {
                     ))}
                 </div>
 
-                <div className="space-y-5">
+                <div className="space-y-6">
                     {/* File Upload */}
-                    <div>
-                        <label className="block text-sm font-medium text-neutral-300 mb-2">Upload Resume (PDF)</label>
-                        <input
-                            type="file" accept=".pdf"
-                            onChange={(e) => setFile(e.target.files?.[0] || null)}
-                            className="block w-full text-sm text-neutral-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-bold file:bg-purple-600/20 file:text-purple-400 hover:file:bg-purple-600/30 cursor-pointer border border-white/10 rounded-md bg-black/20"
-                        />
+                    <div className="relative group">
+                        <label className="block text-sm font-medium text-neutral-300 mb-2 ml-1 cursor-pointer">Upload Resume (PDF)</label>
+                        <div className="relative overflow-hidden rounded-xl bg-black/20 border border-white/10 focus-within:border-purple-500/50 transition-colors">
+                            <input
+                                type="file" accept=".pdf"
+                                onChange={(e) => setFile(e.target.files?.[0] || null)}
+                                className="block w-full text-sm text-neutral-400 
+                                file:mr-4 file:py-4 file:px-6 file:border-0 
+                                file:text-sm file:font-semibold file:bg-white/5 file:text-purple-400
+                                hover:file:bg-white/10 file:cursor-pointer cursor-pointer transition-colors
+                                focus:outline-none"
+                            />
+                        </div>
                     </div>
 
                     {/* Job Description (Hidden for ATS Score) */}
@@ -99,14 +108,15 @@ export default function ResumeAnalyzer() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
                         >
-                            <label className="block text-sm font-medium text-neutral-300 mb-2">Target Job Description</label>
+                            <label className="block text-sm font-medium text-neutral-300 mb-2 ml-1">Target Job Description</label>
                             <textarea
-                                rows={5}
+                                rows={6}
                                 value={jobDescription}
                                 onChange={(e) => setJobDescription(e.target.value)}
-                                placeholder="Paste the job requirements here..."
-                                className="w-full p-3 bg-black/20 border border-white/10 rounded-md focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-sm text-neutral-300 placeholder-neutral-600 transition-all"
+                                placeholder="Paste the full job description here..."
+                                className="w-full p-4 bg-black/20 border border-white/10 rounded-xl focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/20 outline-none text-sm text-neutral-200 placeholder-neutral-600 transition-all resize-y min-h-[120px]"
                             />
                         </motion.div>
                     )}
@@ -114,10 +124,16 @@ export default function ResumeAnalyzer() {
                     <button
                         onClick={handleRun}
                         disabled={loading || !file}
-                        className={`w-full py-3 rounded-md font-bold transition-all ${loading || !file ? "bg-white/5 text-neutral-500 cursor-not-allowed" : "bg-purple-600 text-white hover:bg-purple-700 shadow-[0_0_15px_rgba(147,51,234,0.3)]"
+                        className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2
+                            ${loading || !file
+                                ? "bg-white/5 text-neutral-500 cursor-not-allowed"
+                                : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-900/30 hover:scale-[1.01] hover:shadow-purple-900/50 cursor-pointer"
                             }`}
                     >
-                        {loading ? "Processing via AI..." : "Run Analysis"}
+                        {loading ? "Processing via AI..." :
+                            activeTab === "ats-score" ? "Generate ATS Score" :
+                                activeTab === "cover-letter" ? "Generate Cover Letter" :
+                                    "Run Match Analysis"}
                     </button>
                 </div>
             </div>
@@ -197,7 +213,7 @@ export default function ResumeAnalyzer() {
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center mb-2">
                                     <h3 className="text-purple-400 text-xs uppercase font-bold tracking-wider">Generated Cover Letter</h3>
-                                    <button onClick={() => navigator.clipboard.writeText(result.coverLetter!)} className="text-xs text-neutral-400 hover:text-white border border-white/10 px-3 py-1 rounded bg-black/20">Copy Text</button>
+                                    <button onClick={() => navigator.clipboard.writeText(result.coverLetter!)} className="text-xs text-neutral-400 hover:text-white border border-white/10 px-3 py-1 rounded bg-black/20 cursor-pointer">Copy Text</button>
                                 </div>
                                 <div className="bg-black/20 border border-white/10 rounded-lg p-6 text-sm text-neutral-300 whitespace-pre-wrap leading-relaxed">
                                     {result.coverLetter}

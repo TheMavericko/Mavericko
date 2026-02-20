@@ -66,7 +66,7 @@ export default function ResumeAnalyzer() {
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-50" />
 
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 mb-8 p-1.5 bg-black/40 rounded-xl border border-white/5 w-fit mx-auto sm:mx-0">
+                <div className="flex flex-wrap gap-2 mb-8 p-1.5 bg-black/40 rounded-xl border border-white/5 w-fit mx-auto">
                     {[
                         { id: "analyze-jd", label: "🎯 In-Depth Match" },
                         { id: "ats-score", label: "🤖 General ATS Score" },
